@@ -2,7 +2,5 @@ services:
   - type: web
     name: tendersaarthi-backend
     env: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
     plan: free
     healthCheckPath: /health
