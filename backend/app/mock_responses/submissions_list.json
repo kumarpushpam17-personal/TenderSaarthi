@@ -1,0 +1,72 @@
+{
+  "data": [
+    {
+      "id": "s-001",
+      "tender_id": "t-001",
+      "bidder_id": "b-001",
+      "legal_name": "Sharma Constructions Pvt. Ltd.",
+      "contact_email": "compliance@sharmaconstructions.example",
+      "gst_number": "29AABCS1234K1Z5",
+      "status": "READY_FOR_EVALUATION",
+      "submitted_at": "2026-05-06T10:15:00Z",
+      "document_count": 4,
+      "documents": [
+        {"id": "d-001", "filename": "Annual_Report_2023-24.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"]},
+        {"id": "d-002", "filename": "ISO_9001_Certificate.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"]},
+        {"id": "d-003", "filename": "GST_Registration.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"]},
+        {"id": "d-004", "filename": "Project_Completion_Certs.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"]}
+      ],
+      "processing_summary": {
+        "ocr": "complete",
+        "criteria_matched": 9,
+        "needs_correction": 0
+      }
+    },
+    {
+      "id": "s-002",
+      "tender_id": "t-001",
+      "bidder_id": "b-002",
+      "legal_name": "Rajesh Builders & Co.",
+      "contact_email": "rajesh.builders@example.in",
+      "gst_number": "27AABCR5678M1Z3",
+      "status": "NEEDS_CORRECTION",
+      "submitted_at": "2026-05-06T11:30:00Z",
+      "document_count": 3,
+      "documents": [
+        {"id": "d-005", "filename": "Turnover_Certificate.jpg", "document_type": "IMAGE", "detected_languages": ["hi"]},
+        {"id": "d-006", "filename": "GST_Certificate_scan.pdf", "document_type": "SCANNED_PDF", "detected_languages": ["hi"]},
+        {"id": "d-007", "filename": "ISO_Certificate_photo.jpg", "document_type": "IMAGE", "detected_languages": ["en"]}
+      ],
+      "processing_summary": {
+        "ocr": "low_confidence",
+        "criteria_matched": 6,
+        "needs_correction": 2
+      }
+    },
+    {
+      "id": "s-003",
+      "tender_id": "t-001",
+      "bidder_id": "b-003",
+      "legal_name": "Verma & Sons Infrastructure",
+      "contact_email": "submissions@vermainfra.example",
+      "gst_number": "29AABCV9012N1Z8",
+      "status": "PROCESSING",
+      "submitted_at": "2026-05-06T14:00:00Z",
+      "document_count": 3,
+      "documents": [
+        {"id": "d-008", "filename": "Balance_Sheet_FY2024.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"]},
+        {"id": "d-009", "filename": "GST_Certificate_Kannada.pdf", "document_type": "SCANNED_PDF", "detected_languages": ["kn"]},
+        {"id": "d-010", "filename": "Project_Certificates.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"]}
+      ],
+      "processing_summary": {
+        "ocr": "running",
+        "criteria_matched": 5,
+        "needs_correction": 0
+      }
+    }
+  ],
+  "meta": {
+    "total": 3,
+    "tender_id": "t-001"
+  }
+}

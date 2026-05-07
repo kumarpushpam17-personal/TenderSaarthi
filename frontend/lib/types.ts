@@ -18,6 +18,14 @@ export type DocumentType = "TYPED_PDF" | "SCANNED_PDF" | "IMAGE" | "DOCX";
 
 export type VerdictValue = "ELIGIBLE" | "NOT_ELIGIBLE" | "NEEDS_MANUAL_REVIEW";
 
+export type PublicSubmissionStatus = "NOT_STARTED" | "SUBMITTED";
+
+export type SubmissionStatus =
+  | "DRAFT"
+  | "PROCESSING"
+  | "READY_FOR_EVALUATION"
+  | "NEEDS_CORRECTION";
+
 export interface TenderSummary {
   id: string;
   title: string;
@@ -27,6 +35,16 @@ export interface TenderSummary {
   criteria_count: number;
   bidder_count: number;
   verdict_count: number;
+}
+
+export interface PublicTenderSummary extends TenderSummary {
+  submission_deadline: string;
+  submission_status: PublicSubmissionStatus;
+}
+
+export interface PublicTenderDetail extends TenderDetail {
+  submission_deadline: string;
+  submission_status: PublicSubmissionStatus;
 }
 
 export interface TenderDetail extends TenderSummary {
@@ -57,6 +75,26 @@ export interface Bidder {
   legal_name: string;
   uploaded_at: string;
   documents: BidderDocument[];
+}
+
+export interface SubmissionProcessingSummary {
+  ocr: string;
+  criteria_matched: number;
+  needs_correction: number;
+}
+
+export interface BidderSubmission {
+  id: string;
+  tender_id: string;
+  bidder_id: string;
+  legal_name: string;
+  contact_email: string;
+  gst_number: string | null;
+  status: SubmissionStatus;
+  submitted_at: string;
+  document_count: number;
+  documents: BidderDocument[];
+  processing_summary: SubmissionProcessingSummary;
 }
 
 export interface EvidenceRef {

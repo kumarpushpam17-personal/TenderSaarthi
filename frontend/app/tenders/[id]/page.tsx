@@ -19,7 +19,7 @@ export default async function TenderOverviewPage({
     tender.status === "AWAITING_REVIEW"
       ? { href: "review-criteria", label: "Review Criteria", text: "Review the extracted criteria before adding bidders." }
       : tender.status === "CRITERIA_APPROVED"
-        ? { href: "bidders", label: "Add Bidders", text: "Add bidders and upload their supporting documents." }
+        ? { href: "submissions", label: "Review Submissions", text: "Review bidder uploads before evaluation." }
         : tender.status === "EVALUATED"
           ? { href: "audit", label: "Download Report", text: "Evaluation is complete. Review the audit report." }
           : null;

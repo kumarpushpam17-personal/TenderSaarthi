@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": "t-001",
+      "title": "CRPF Construction Tender 2024",
+      "procuring_department": "CRPF - HQ New Delhi",
+      "status": "AWAITING_REVIEW",
+      "uploaded_at": "2026-05-05T09:00:00Z",
+      "criteria_count": 9,
+      "bidder_count": 3,
+      "verdict_count": 0,
+      "submission_deadline": "2026-05-20T17:00:00Z",
+      "submission_status": "NOT_STARTED"
+    },
+    {
+      "id": "t-002",
+      "title": "CRPF IT Infrastructure 2024",
+      "procuring_department": "CRPF - Signals Wing",
+      "status": "EVALUATED",
+      "uploaded_at": "2026-05-02T11:00:00Z",
+      "criteria_count": 7,
+      "bidder_count": 5,
+      "verdict_count": 35,
+      "submission_deadline": "2026-05-18T17:00:00Z",
+      "submission_status": "SUBMITTED"
+    }
+  ],
+  "meta": {
+    "total": 2,
+    "workspace": "bidder"
+  }
+}

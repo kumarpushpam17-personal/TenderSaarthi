@@ -8,7 +8,7 @@ import type { TenderStatus } from "@/lib/types";
 const TABS = [
   { label: "Overview", path: "" },
   { label: "Review Criteria", path: "/review-criteria" },
-  { label: "Bidders", path: "/bidders" },
+  { label: "Submissions", path: "/submissions" },
   { label: "Evaluate", path: "/verdicts" },
   { label: "Report", path: "/audit" },
 ] as const;
@@ -30,7 +30,7 @@ function isTabCompleted(tabPath: string, status: TenderStatus): boolean {
 
 function isTabLocked(tabPath: string, status: TenderStatus): boolean {
   if (
-    tabPath === "/bidders" &&
+    tabPath === "/submissions" &&
     !["CRITERIA_APPROVED", "EVALUATING", "EVALUATED", "SIGNED"].includes(status)
   ) {
     return true;

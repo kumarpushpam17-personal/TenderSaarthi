@@ -1,7 +1,11 @@
 import type {
   AuditReport,
   Bidder,
+  BidderDocument,
+  BidderSubmission,
   Criterion,
+  PublicTenderDetail,
+  PublicTenderSummary,
   TenderDetail,
   TenderStats,
   TenderSummary,
@@ -46,6 +50,14 @@ export async function fetchTender(id: string): Promise<TenderDetail> {
   return (await request<TenderDetail>(`/api/v1/tenders/${id}`)).data;
 }
 
+export async function fetchPublicTenders(): Promise<PublicTenderSummary[]> {
+  return (await request<PublicTenderSummary[]>("/api/v1/public/tenders")).data;
+}
+
+export async function fetchPublicTender(id: string): Promise<PublicTenderDetail> {
+  return (await request<PublicTenderDetail>(`/api/v1/public/tenders/${id}`)).data;
+}
+
 export async function createTender(form: FormData): Promise<TenderDetail> {
   return (
     await request<TenderDetail>("/api/v1/tenders", {
@@ -86,6 +98,52 @@ export async function approveCriteria(
 
 export async function fetchBidders(tenderId: string): Promise<Bidder[]> {
   return (await request<Bidder[]>(`/api/v1/tenders/${tenderId}/bidders`)).data;
+}
+
+export async function fetchTenderSubmissions(
+  tenderId: string
+): Promise<BidderSubmission[]> {
+  return (
+    await request<BidderSubmission[]>(`/api/v1/tenders/${tenderId}/submissions`)
+  ).data;
+}
+
+export async function createSubmission(
+  tenderId: string,
+  body: {
+    legal_name: string;
+    contact_email: string;
+    gst_number?: string;
+  }
+): Promise<BidderSubmission> {
+  return (
+    await request<BidderSubmission>(`/api/v1/public/tenders/${tenderId}/submissions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+  ).data;
+}
+
+export async function uploadSubmissionDocument(
+  submissionId: string,
+  file: File
+): Promise<BidderDocument & { submission_id: string }> {
+  const form = new FormData();
+  form.append("file", file);
+  return (
+    await request<BidderDocument & { submission_id: string }>(
+      `/api/v1/submissions/${submissionId}/documents`,
+      {
+        method: "POST",
+        body: form,
+      }
+    )
+  ).data;
+}
+
+export async function fetchSubmission(submissionId: string): Promise<BidderSubmission> {
+  return (await request<BidderSubmission>(`/api/v1/submissions/${submissionId}`)).data;
 }
 
 export async function createBidder(
