@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": "t-001",
+      "title": "CRPF Construction Tender 2024",
+      "procuring_department": "CRPF - HQ New Delhi",
+      "status": "AWAITING_REVIEW",
+      "uploaded_at": "2026-05-05T09:00:00Z",
+      "criteria_count": 9,
+      "bidder_count": 3,
+      "verdict_count": 0
+    },
+    {
+      "id": "t-002",
+      "title": "CRPF IT Infrastructure 2024",
+      "procuring_department": "CRPF - Signals Wing",
+      "status": "EVALUATED",
+      "uploaded_at": "2026-05-02T11:00:00Z",
+      "criteria_count": 7,
+      "bidder_count": 5,
+      "verdict_count": 35
+    },
+    {
+      "id": "t-003",
+      "title": "CRPF Vehicle Maintenance 2023",
+      "procuring_department": "CRPF - Transport Wing",
+      "status": "SIGNED",
+      "uploaded_at": "2026-04-14T08:00:00Z",
+      "criteria_count": 6,
+      "bidder_count": 4,
+      "verdict_count": 24
+    }
+  ],
+  "meta": {
+    "total": 3,
+    "stats": {
+      "active": 3,
+      "awaiting_review": 1,
+      "evaluated": 1,
+      "signed": 1,
+      "verdicts_total": 27
+    }
+  }
+}

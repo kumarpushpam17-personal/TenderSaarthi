@@ -1,0 +1,328 @@
+{
+  "data": {
+    "tender_id": "t-001",
+    "criteria": ["c-001", "c-002", "c-003", "c-004", "c-005", "c-006", "c-007", "c-008", "c-009"],
+    "verdicts": [
+      {
+        "bidder_id": "b-001",
+        "bidder_name": "Sharma Constructions Pvt. Ltd.",
+        "results": [
+          {
+            "criterion_id": "c-001",
+            "verdict": "ELIGIBLE",
+            "reason": "Turnover INR 8.3 Crore exceeds INR 5 Crore threshold.",
+            "ocr_confidence": 0.98,
+            "extraction_confidence": 0.96,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 8.3 Crore", "page": 4, "bbox": [120, 450, 380, 470], "raw_span": "Total Revenue from Operations: INR 8.3 crore", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-002",
+            "verdict": "ELIGIBLE",
+            "reason": "Four similar projects found, meeting the minimum of three.",
+            "ocr_confidence": 0.97,
+            "extraction_confidence": 0.94,
+            "span_validated": true,
+            "evidence_ref": { "value": "4 projects", "page": 7, "bbox": [100, 200, 400, 280], "raw_span": "List of similar works completed: 4 projects above INR 2 Crore", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-003",
+            "verdict": "ELIGIBLE",
+            "reason": "Valid ISO 9001:2015 certificate found.",
+            "ocr_confidence": 0.99,
+            "extraction_confidence": 0.97,
+            "span_validated": true,
+            "evidence_ref": { "value": "ISO 9001:2015", "page": 1, "bbox": [50, 100, 350, 200], "raw_span": "ISO 9001:2015 Certified - valid until 31-Dec-2026", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-004",
+            "verdict": "ELIGIBLE",
+            "reason": "GST certificate found and active.",
+            "ocr_confidence": 0.98,
+            "extraction_confidence": 0.96,
+            "span_validated": true,
+            "evidence_ref": { "value": "29AABCS1234K1Z5", "page": 1, "bbox": [80, 150, 300, 180], "raw_span": "GSTIN: 29AABCS1234K1Z5 - Status: Active", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-005",
+            "verdict": "ELIGIBLE",
+            "reason": "PAN card found.",
+            "ocr_confidence": 0.99,
+            "extraction_confidence": 0.98,
+            "span_validated": true,
+            "evidence_ref": { "value": "AABCS1234K", "page": 1, "bbox": [80, 200, 250, 220], "raw_span": "Permanent Account Number: AABCS1234K", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-006",
+            "verdict": "ELIGIBLE",
+            "reason": "Self-declaration of non-blacklisting submitted.",
+            "ocr_confidence": 0.97,
+            "extraction_confidence": 0.95,
+            "span_validated": true,
+            "evidence_ref": { "value": "self-declaration", "page": 2, "bbox": [60, 100, 450, 300], "raw_span": "We hereby declare that our firm is not blacklisted by any Government department.", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-007",
+            "verdict": "ELIGIBLE",
+            "reason": "Single project of INR 4.5 Crore exceeds INR 3 Crore threshold.",
+            "ocr_confidence": 0.97,
+            "extraction_confidence": 0.95,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 4.5 Crore", "page": 8, "bbox": [100, 300, 380, 330], "raw_span": "Work order value: INR 4.5 Crore - CRPF Barracks 2022", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-008",
+            "verdict": "ELIGIBLE",
+            "reason": "Positive net worth of INR 3.2 Crore confirmed.",
+            "ocr_confidence": 0.98,
+            "extraction_confidence": 0.96,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 3.2 Crore", "page": 5, "bbox": [120, 500, 380, 520], "raw_span": "Net Worth as on 31-Mar-2024: INR 3.2 Crore", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-009",
+            "verdict": "ELIGIBLE",
+            "reason": "OHSAS 18001 certification found.",
+            "ocr_confidence": 0.98,
+            "extraction_confidence": 0.95,
+            "span_validated": true,
+            "evidence_ref": { "value": "OHSAS 18001", "page": 2, "bbox": [50, 150, 350, 200], "raw_span": "OHSAS 18001:2007 Certified - valid until 2026-09-30", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          }
+        ]
+      },
+      {
+        "bidder_id": "b-002",
+        "bidder_name": "Rajesh Builders & Co.",
+        "results": [
+          {
+            "criterion_id": "c-001",
+            "verdict": "NOT_ELIGIBLE",
+            "reason": "Turnover INR 2.1 Crore is below INR 5 Crore threshold.",
+            "ocr_confidence": 0.82,
+            "extraction_confidence": 0.87,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 2.1 Crore", "page": 4, "bbox": [110, 430, 370, 455], "raw_span": "Kul rajsva: INR 2.1 crore", "translated_span": "Total Revenue: INR 2.1 Crore" },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-002",
+            "verdict": "ELIGIBLE",
+            "reason": "Three similar projects found.",
+            "ocr_confidence": 0.91,
+            "extraction_confidence": 0.89,
+            "span_validated": true,
+            "evidence_ref": { "value": "3 projects", "page": 6, "bbox": [90, 180, 420, 260], "raw_span": "Saman karyon ki suchi: 3 pariyojanayein", "translated_span": "List of similar works: 3 projects" },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-003",
+            "verdict": "NEEDS_MANUAL_REVIEW",
+            "reason": "OCR confidence below floor on photographed certificate.",
+            "ocr_confidence": 0.61,
+            "extraction_confidence": 0.72,
+            "span_validated": false,
+            "evidence_ref": { "value": "ISO 9001 unconfirmed", "page": 1, "bbox": [50, 80, 400, 220], "raw_span": "low confidence OCR output", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-004",
+            "verdict": "ELIGIBLE",
+            "reason": "GST certificate found after translation.",
+            "ocr_confidence": 0.84,
+            "extraction_confidence": 0.88,
+            "span_validated": true,
+            "evidence_ref": { "value": "27AABCR5678M1Z3", "page": 1, "bbox": [70, 140, 310, 165], "raw_span": "GSTIN: 27AABCR5678M1Z3", "translated_span": "GSTIN: 27AABCR5678M1Z3" },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-005",
+            "verdict": "ELIGIBLE",
+            "reason": "PAN card found.",
+            "ocr_confidence": 0.89,
+            "extraction_confidence": 0.92,
+            "span_validated": true,
+            "evidence_ref": { "value": "AABCR5678M", "page": 1, "bbox": [70, 190, 240, 210], "raw_span": "PAN: AABCR5678M", "translated_span": "PAN: AABCR5678M" },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-006",
+            "verdict": "ELIGIBLE",
+            "reason": "Non-blacklisting declaration found.",
+            "ocr_confidence": 0.86,
+            "extraction_confidence": 0.9,
+            "span_validated": true,
+            "evidence_ref": { "value": "self-declaration", "page": 3, "bbox": [55, 90, 460, 310], "raw_span": "Ham ghoshna karte hain ki hamari firm blacklisted nahin hai", "translated_span": "We declare that our firm is not blacklisted." },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-007",
+            "verdict": "NOT_ELIGIBLE",
+            "reason": "Largest single project is INR 1.8 Crore, below INR 3 Crore threshold.",
+            "ocr_confidence": 0.85,
+            "extraction_confidence": 0.88,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 1.8 Crore", "page": 7, "bbox": [95, 290, 375, 315], "raw_span": "Sabse bada ekal karya: INR 1.8 crore", "translated_span": "Largest single work: INR 1.8 Crore" },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-008",
+            "verdict": "NEEDS_MANUAL_REVIEW",
+            "reason": "Translation confidence below floor; net worth figure could not be reliably extracted.",
+            "ocr_confidence": 0.79,
+            "extraction_confidence": 0.68,
+            "span_validated": false,
+            "evidence_ref": { "value": "unknown", "page": 5, "bbox": [110, 490, 370, 515], "raw_span": "Shuddh sampatti: unclear", "translated_span": "Net Worth: unclear" },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-009",
+            "verdict": "NOT_ELIGIBLE",
+            "reason": "OHSAS or ISO 45001 certificate not found in submission index.",
+            "ocr_confidence": 0.93,
+            "extraction_confidence": 0.9,
+            "span_validated": true,
+            "evidence_ref": { "value": "certificate absent", "page": 0, "bbox": [0, 0, 0, 0], "raw_span": "Reviewed submitted certificate index: Annual, GST, PAN, ISO 9001 only", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          }
+        ]
+      },
+      {
+        "bidder_id": "b-003",
+        "bidder_name": "Verma & Sons Infrastructure",
+        "results": [
+          {
+            "criterion_id": "c-001",
+            "verdict": "ELIGIBLE",
+            "reason": "Turnover INR 6.2 Crore exceeds INR 5 Crore threshold.",
+            "ocr_confidence": 0.97,
+            "extraction_confidence": 0.95,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 6.2 Crore", "page": 3, "bbox": [115, 440, 375, 462], "raw_span": "Total Revenue from Operations: INR 6.2 crore", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-002",
+            "verdict": "NOT_ELIGIBLE",
+            "reason": "Only two similar projects found; minimum required is three.",
+            "ocr_confidence": 0.96,
+            "extraction_confidence": 0.94,
+            "span_validated": true,
+            "evidence_ref": { "value": "2 projects", "page": 6, "bbox": [90, 200, 400, 270], "raw_span": "Similar works completed: 2 projects", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-003",
+            "verdict": "ELIGIBLE",
+            "reason": "ISO 9001:2015 certificate valid.",
+            "ocr_confidence": 0.98,
+            "extraction_confidence": 0.96,
+            "span_validated": true,
+            "evidence_ref": { "value": "ISO 9001:2015", "page": 1, "bbox": [50, 100, 350, 200], "raw_span": "ISO 9001:2015 - Valid until 2027-03-15", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-004",
+            "verdict": "NEEDS_MANUAL_REVIEW",
+            "reason": "GST certificate in Kannada has low OCR confidence after translation.",
+            "ocr_confidence": 0.71,
+            "extraction_confidence": 0.76,
+            "span_validated": false,
+            "evidence_ref": { "value": "GST cert unconfirmed", "page": 1, "bbox": [60, 130, 320, 180], "raw_span": "Kannada GST registration low confidence", "translated_span": "GST Registration: low confidence" },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-005",
+            "verdict": "ELIGIBLE",
+            "reason": "PAN card found.",
+            "ocr_confidence": 0.98,
+            "extraction_confidence": 0.97,
+            "span_validated": true,
+            "evidence_ref": { "value": "AABCV9012N", "page": 1, "bbox": [80, 200, 250, 218], "raw_span": "PAN: AABCV9012N", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-006",
+            "verdict": "ELIGIBLE",
+            "reason": "Self-declaration submitted.",
+            "ocr_confidence": 0.97,
+            "extraction_confidence": 0.95,
+            "span_validated": true,
+            "evidence_ref": { "value": "self-declaration", "page": 2, "bbox": [60, 100, 450, 300], "raw_span": "We hereby certify that our firm is not debarred by any Government department.", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-007",
+            "verdict": "ELIGIBLE",
+            "reason": "Single project of INR 3.8 Crore found.",
+            "ocr_confidence": 0.96,
+            "extraction_confidence": 0.94,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 3.8 Crore", "page": 7, "bbox": [100, 310, 380, 335], "raw_span": "Single work order: CRPF Road Construction - INR 3.8 Crore", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-008",
+            "verdict": "ELIGIBLE",
+            "reason": "Net worth INR 2.1 Crore confirmed.",
+            "ocr_confidence": 0.97,
+            "extraction_confidence": 0.95,
+            "span_validated": true,
+            "evidence_ref": { "value": "INR 2.1 Crore", "page": 4, "bbox": [120, 510, 380, 530], "raw_span": "Net Worth as on 31-Mar-2024: INR 2.1 Crore", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          },
+          {
+            "criterion_id": "c-009",
+            "verdict": "ELIGIBLE",
+            "reason": "ISO 45001 certificate found.",
+            "ocr_confidence": 0.97,
+            "extraction_confidence": 0.95,
+            "span_validated": true,
+            "evidence_ref": { "value": "ISO 45001", "page": 2, "bbox": [50, 160, 340, 205], "raw_span": "ISO 45001:2018 - valid until 2025-11-30", "translated_span": null },
+            "model_version": "claude-sonnet-4-6",
+            "replay_id": "r-001"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "tender_id": "t-001",
+    "total_verdicts": 27,
+    "request_id": "mock-001"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "data": [
+    {
+      "id": "c-001",
+      "tender_id": "t-001",
+      "category": "FINANCIAL",
+      "description": "The bidder shall have a minimum average annual turnover of INR 5 Crore during the last three financial years.",
+      "is_mandatory": true,
+      "threshold": { "type": "min_amount_inr", "value": 50000000 },
+      "source_page": 12,
+      "approved_at": null
+    },
+    {
+      "id": "c-002",
+      "tender_id": "t-001",
+      "category": "TECHNICAL",
+      "description": "The bidder must have successfully completed at least 3 similar construction works of value not less than INR 2 Crore each during the last 5 years.",
+      "is_mandatory": true,
+      "threshold": { "type": "min_count", "value": 3 },
+      "source_page": 13,
+      "approved_at": null
+    },
+    {
+      "id": "c-003",
+      "tender_id": "t-001",
+      "category": "CERTIFICATION",
+      "description": "The bidder shall possess a valid ISO 9001:2015 Quality Management System certification from an accredited certification body.",
+      "is_mandatory": true,
+      "threshold": { "type": "must_exist", "value": true },
+      "source_page": 14,
+      "approved_at": null
+    },
+    {
+      "id": "c-004",
+      "tender_id": "t-001",
+      "category": "DOCUMENT",
+      "description": "Valid GST Registration Certificate with active GST number must be submitted.",
+      "is_mandatory": true,
+      "threshold": { "type": "must_exist", "value": true },
+      "source_page": 15,
+      "approved_at": null
+    },
+    {
+      "id": "c-005",
+      "tender_id": "t-001",
+      "category": "DOCUMENT",
+      "description": "Valid PAN Card issued by the Income Tax Department.",
+      "is_mandatory": true,
+      "threshold": { "type": "must_exist", "value": true },
+      "source_page": 15,
+      "approved_at": null
+    },
+    {
+      "id": "c-006",
+      "tender_id": "t-001",
+      "category": "COMPLIANCE",
+      "description": "The bidder shall not be blacklisted or debarred by any Central or State Government department or PSU.",
+      "is_mandatory": true,
+      "threshold": { "type": "must_exist", "value": true },
+      "source_page": 16,
+      "approved_at": null
+    },
+    {
+      "id": "c-007",
+      "tender_id": "t-001",
+      "category": "TECHNICAL",
+      "description": "The bidder must have at least one project of similar nature worth INR 3 Crore or more as a single work order.",
+      "is_mandatory": true,
+      "threshold": { "type": "min_amount_inr", "value": 30000000 },
+      "source_page": 13,
+      "approved_at": null
+    },
+    {
+      "id": "c-008",
+      "tender_id": "t-001",
+      "category": "FINANCIAL",
+      "description": "The bidder shall have a positive net worth in the latest audited balance sheet.",
+      "is_mandatory": true,
+      "threshold": { "type": "must_exist", "value": true },
+      "source_page": 12,
+      "approved_at": null
+    },
+    {
+      "id": "c-009",
+      "tender_id": "t-001",
+      "category": "CERTIFICATION",
+      "description": "The bidder may possess OHSAS 18001 or ISO 45001 Occupational Health and Safety certification.",
+      "is_mandatory": false,
+      "threshold": { "type": "must_exist", "value": true },
+      "source_page": 14,
+      "approved_at": null
+    }
+  ],
+  "meta": {
+    "total": 9,
+    "tender_id": "t-001",
+    "status": "AWAITING_REVIEW"
+  }
+}

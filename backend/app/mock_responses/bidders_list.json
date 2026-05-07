@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "id": "b-001",
+      "tender_id": "t-001",
+      "legal_name": "Sharma Constructions Pvt. Ltd.",
+      "uploaded_at": "2026-05-06T10:00:00Z",
+      "documents": [
+        { "id": "d-001", "filename": "Annual_Report_2023-24.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"] },
+        { "id": "d-002", "filename": "ISO_9001_Certificate.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"] },
+        { "id": "d-003", "filename": "GST_Registration.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"] },
+        { "id": "d-004", "filename": "Project_Completion_Certs.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"] }
+      ]
+    },
+    {
+      "id": "b-002",
+      "tender_id": "t-001",
+      "legal_name": "Rajesh Builders & Co.",
+      "uploaded_at": "2026-05-06T11:30:00Z",
+      "documents": [
+        { "id": "d-005", "filename": "Turnover_Certificate_Hindi.jpg", "document_type": "IMAGE", "detected_languages": ["hi"] },
+        { "id": "d-006", "filename": "GST_Certificate_scan.pdf", "document_type": "SCANNED_PDF", "detected_languages": ["hi"] },
+        { "id": "d-007", "filename": "ISO_Certificate_photo.jpg", "document_type": "IMAGE", "detected_languages": ["en"] }
+      ]
+    },
+    {
+      "id": "b-003",
+      "tender_id": "t-001",
+      "legal_name": "Verma & Sons Infrastructure",
+      "uploaded_at": "2026-05-06T14:00:00Z",
+      "documents": [
+        { "id": "d-008", "filename": "Balance_Sheet_FY2024.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"] },
+        { "id": "d-009", "filename": "GST_Certificate_Kannada.pdf", "document_type": "SCANNED_PDF", "detected_languages": ["kn"] },
+        { "id": "d-010", "filename": "Project_Certificates.pdf", "document_type": "TYPED_PDF", "detected_languages": ["en"] }
+      ]
+    }
+  ],
+  "meta": {
+    "total": 3,
+    "tender_id": "t-001"
+  }
+}

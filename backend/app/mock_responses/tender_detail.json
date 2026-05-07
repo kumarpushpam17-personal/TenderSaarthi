@@ -1,0 +1,17 @@
+{
+  "data": {
+    "id": "t-001",
+    "title": "CRPF Construction Tender 2024",
+    "procuring_department": "CRPF - HQ New Delhi",
+    "status": "AWAITING_REVIEW",
+    "uploaded_at": "2026-05-05T09:00:00Z",
+    "source_pdf_uri": "/mock/tenders/t-001.pdf",
+    "criteria_count": 9,
+    "bidder_count": 3,
+    "verdict_count": 0
+  },
+  "meta": {
+    "request_id": "mock-001",
+    "timestamp": "2026-05-07T00:00:00Z"
+  }
+}

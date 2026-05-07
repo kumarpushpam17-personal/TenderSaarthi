@@ -89,16 +89,15 @@ A higher-resolution Mermaid diagram lives in [`docs/ARCHITECTURE.md`](docs/ARCHI
 
 ## Quick start
 
+### Mock UI + API phase
+
+The current implementation is the Phase 1 mock: FastAPI serves static JSON
+fixtures, and the Next.js reviewer UI calls those HTTP endpoints. Later phases
+replace the route bodies with database, OCR, and LLM logic without changing the
+frontend contract.
+
 ```bash
-# Clone
-git clone https://github.com/<your-team>/TenderSaarthi
-cd TenderSaarthi
-
-# Configure secrets
-cp infra/.env.example infra/.env
-# Edit infra/.env — add ANTHROPIC_API_KEY at minimum
-
-# One-command bootstrap
+# One-command bootstrap for the mock demo
 docker compose -f infra/docker-compose.yml up --build
 
 # Open
@@ -106,13 +105,19 @@ docker compose -f infra/docker-compose.yml up --build
 # API docs:   http://localhost:8000/docs
 ```
 
-To run with the bundled demo tender + 10 synthetic bidders:
+Local development without Docker:
 
 ```bash
-docker compose exec backend python -m scripts.load_demo
+cd backend
+pip install -e ".[dev]"
+uvicorn app.main:app --reload --port 8000
+
+cd ../frontend
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:3000/tenders/demo` in the UI.
+Then open `http://localhost:3000/tenders`.
 
 ## Demo
 
