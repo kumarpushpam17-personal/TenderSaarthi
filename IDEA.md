@@ -24,6 +24,18 @@ This process has **five structural failures**:
 
 A naive "throw an LLM at it" approach fixes the speed but worsens the other four — black-box outputs, no source citations, hallucinated values, no replay path. That is the opposite of what procurement law requires.
 
+## Product roles
+
+TenderSaarthi has two explicit workspaces. Keeping them separate is a product requirement, not a UI preference.
+
+### CRPF / Admin workspace
+This is the procurement-officer workflow. Admin users create tenders, upload tender PDFs, review extracted criteria, monitor bidder submissions, run eligibility evaluation, inspect verdicts, override or approve results, and generate the audit report.
+
+### Bidder workspace
+This is the submission workflow. Bidder users see open tenders, open a tender detail page, submit their firm profile and document bundle for that tender, and track whether the submission is received or needs correction. Bidder users do not see other bidders, internal criteria edits, model outputs, verdict matrices, or audit reports.
+
+The current mock frontend may use admin-assisted bidder upload as a prototype shortcut, but the target product keeps bidder submission separate from admin review.
+
 ## Solution
 
 **TenderSaarthi** is a decision-support platform that automates the document-heavy parts of tender evaluation while leaving the decision authority squarely with the procurement officer. It produces a criterion-by-criterion verdict for every bidder, with full source citations and a replayable audit trail.
@@ -33,8 +45,8 @@ It works in five stages.
 ### Stage 1 — Tender Understanding
 The platform ingests the tender PDF, extracts every eligibility criterion, classifies it (technical / financial / compliance / document checklist / certification), tags it as mandatory or optional, and converts it into a typed structured record. Free-form prose becomes a checklist a machine can match against.
 
-### Stage 2 — Multiformat & Multilingual Document Understanding
-Bidder submissions arrive as a mix of typed PDFs, scanned PDFs, JPG/PNG photographs of physical certificates, and Word files — sometimes in English, sometimes in Hindi, Kannada, or other regional languages. The pipeline routes each document through the right extractor: digital text parsers for typed PDFs, an OCR router (PaddleOCR with Indic weights → Tesseract → vision LLM) for scans and photos, and AWS Textract for tabular financial statements. Multilingual content flows through IndicTrans2 with original-language text always preserved alongside the translation.
+### Stage 2 — Bidder Submission + Multiformat & Multilingual Document Understanding
+Bidder users submit a response against a specific tender: firm details plus a document bundle. Submissions arrive as a mix of typed PDFs, scanned PDFs, JPG/PNG photographs of physical certificates, and Word files — sometimes in English, sometimes in Hindi, Kannada, or other regional languages. The pipeline routes each document through the right extractor: digital text parsers for typed PDFs, an OCR router (PaddleOCR with Indic weights → Tesseract → vision LLM) for scans and photos, and AWS Textract for tabular financial statements. Multilingual content flows through IndicTrans2 with original-language text always preserved alongside the translation.
 
 ### Stage 3 — Criteria-to-Evidence Matching
 For every bidder, the engine maps extracted evidence against every criterion. It uses three complementary modes:
@@ -89,7 +101,7 @@ Three things converge in 2026 that did not exist three years ago.
 ## Scope and non-goals (what we are deliberately not building)
 
 - **Not** a tender authoring tool — we read tenders, not write them.
-- **Not** a bidder portal — we score bidders, we do not collect their submissions through a marketplace.
+- **Not** a procurement marketplace — we provide a lightweight bidder submission workspace for document intake, but we do not replace GeM, CPPP, or state e-procurement portals.
 - **Not** a financial-evaluation engine — we evaluate eligibility (the first envelope), not L1 price ranking (the second envelope). That is a separate problem.
 - **Not** a fully autonomous decision-maker — every disqualification routes to or is signed off by a human officer.
 
@@ -102,11 +114,13 @@ The criterion registry is tender-domain and language-agnostic. The same engine t
 A judge can:
 1. Upload our bundled CRPF-style tender and watch criteria appear in 30 seconds.
 2. Approve or edit the criteria at the criterion-review gate.
-3. Trigger evaluation of 10 synthetic bidders.
-4. See a verdict table with `Eligible` / `Not Eligible` / `Needs Manual Review` outcomes.
-5. Click a `Not Eligible` verdict and jump to the exact bounding box in the bidder's GST certificate.
-6. Override a verdict with a typed reason, then re-export.
-7. Download the signed audit PDF and verify its SHA-256 hash.
-8. Replay the entire evaluation by clicking one button and confirm identical output.
+3. Switch to the bidder workspace, open that tender, and submit a bidder profile plus documents.
+4. Return to the admin workspace and see the bidder submission attached to the tender.
+5. Trigger evaluation of 10 synthetic bidders.
+6. See a verdict table with `Eligible` / `Not Eligible` / `Needs Manual Review` outcomes.
+7. Click a `Not Eligible` verdict and jump to the exact bounding box in the bidder's GST certificate.
+8. Override a verdict with a typed reason, then re-export.
+9. Download the signed audit PDF and verify its SHA-256 hash.
+10. Replay the entire evaluation by clicking one button and confirm identical output.
 
 If that demo lands, the rest is implementation detail.

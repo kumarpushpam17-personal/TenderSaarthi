@@ -4,7 +4,9 @@
 
 **Goal:** Scaffold the full TenderSaarthi frontend (Next.js 14 + shadcn/ui) and mock FastAPI backend so every page renders with realistic data and the API contract is locked for Phase 3.
 
-**Architecture:** FastAPI reads static JSON from `backend/app/mock_responses/`; frontend calls it over HTTP. Government Blue (#1e40af) style, top-nav + horizontal tab stepper, 7 pages total. All 14 API endpoints are wired — Phase 3 only swaps handler bodies.
+**Architecture:** FastAPI reads static JSON from `backend/app/mock_responses/`; frontend calls it over HTTP. Government Blue (#1e40af) style, top-nav + horizontal tab stepper, 7 admin mock pages total. All 14 mock endpoints are wired — Phase 3 swaps handler bodies and adds the bidder workspace endpoints.
+
+**Role clarification:** This plan implemented the admin/reviewer mock flow first. `/tenders/[id]/bidders` is an admin-assisted shortcut used to keep the mock phase small. The target product also requires a bidder workspace where bidders view open tenders and upload their own submissions, then the admin workspace reviews received submissions.
 
 **Tech Stack:** Next.js 14 App Router, TypeScript, Tailwind CSS, shadcn/ui, FastAPI 0.115, Python 3.11, Docker Compose.
 
@@ -56,6 +58,11 @@
 - `frontend/components/bidders/DocumentBadge.tsx`
 - `frontend/components/bidders/BidderCard.tsx`
 - `frontend/components/bidders/AddBidderModal.tsx`
+- `frontend/app/bidder/tenders/page.tsx` — target bidder workspace route, not included in this mock shortcut plan
+- `frontend/app/bidder/tenders/[id]/page.tsx` — target bidder tender details route
+- `frontend/app/bidder/tenders/[id]/submit/page.tsx` — target bidder submission route
+- `frontend/app/bidder/submissions/[id]/page.tsx` — target bidder submission status route
+- `frontend/app/tenders/[id]/submissions/page.tsx` — target admin submissions review route
 - `frontend/app/tenders/[id]/verdicts/page.tsx`
 - `frontend/components/verdicts/VerdictCell.tsx`
 - `frontend/components/verdicts/VerdictSidePanel.tsx`
@@ -1780,6 +1787,8 @@ export default function ReviewCriteriaPage({ params }: { params: { id: string } 
 ## Task 12: Bidders page
 
 **Files:** `DocumentBadge.tsx`, `BidderCard.tsx`, `AddBidderModal.tsx`, bidders page
+
+> Product note: this page is an admin-assisted upload shortcut for the mock phase. The durable implementation should add bidder-facing submission routes (`/bidder/tenders/{id}/submit`) and an admin submissions review route (`/tenders/{id}/submissions`). Do not present `/tenders/{id}/bidders` as the final bidder portal.
 
 - [ ] **Step 1: Create frontend/components/bidders/DocumentBadge.tsx**
 

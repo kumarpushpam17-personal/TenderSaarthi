@@ -18,6 +18,25 @@ Given a tender document and a set of bidder submissions, TenderSaarthi:
 4. **Decides** — `Eligible`, `Not Eligible`, or `Needs Manual Review` — with a citation to the exact source page and bounding box that drove the verdict.
 5. **Reports** — a signed, replayable PDF report a procurement officer can review and use as the basis for a decision.
 
+## Product flow
+
+TenderSaarthi is split into two workspaces so the actors are clear.
+
+**CRPF / Admin workspace**
+- Create a tender and upload the tender PDF.
+- Review, edit, and approve extracted eligibility criteria.
+- Monitor bidder submissions received for that tender.
+- Run eligibility evaluation and review the verdict matrix.
+- Approve or override verdicts and generate the audit report.
+
+**Bidder workspace**
+- View open tenders.
+- Open tender details.
+- Submit firm details and supporting documents for that tender.
+- Track submission status.
+
+The current mock UI includes an admin-side bidder upload shortcut at `/tenders/[id]/bidders` so the demo can show the full evaluation pipeline without authentication. The target product also includes bidder-facing routes such as `/bidder/tenders`, `/bidder/tenders/[id]`, and `/bidder/tenders/[id]/submit`.
+
 ## Why it's different
 
 Three deliberate design choices separate it from a generic LLM-over-PDFs demo:
@@ -48,10 +67,10 @@ Three deliberate design choices separate it from a generic LLM-over-PDFs demo:
    │                                                      │
    ▼                                                      ▼
 ┌──────────────────────┐                 ┌──────────────────────┐
-│  BIDDER PIPELINE     │                 │  CRITERION REGISTRY  │
-│  Lang detect → OCR   │                 │  (typed, indexed)    │
-│  router → VLM for    │                 └──────────────────────┘
-│  scans → translation │                          │
+│  BIDDER SUBMISSION   │                 │  CRITERION REGISTRY  │
+│  Portal/form upload  │                 │  (typed, indexed)    │
+│  → Lang detect → OCR │                 └──────────────────────┘
+│  → translation       │                          │
 │  → evidence extract  │                          │
 └──────────────────────┘                          │
               │                                   │
@@ -136,7 +155,7 @@ Full justifications and trade-offs in [`docs/TECH_STACK.md`](docs/TECH_STACK.md)
 ```
 .claude/                Claude Code config + custom slash commands
 backend/                FastAPI service
-frontend/               Next.js reviewer UI
+frontend/               Next.js admin/reviewer + bidder UI
 data/samples/           Synthetic tender + bidder docs
 docs/                   Architecture, tech stack, demo script, rubric
 infra/                  Docker compose, env, init SQL

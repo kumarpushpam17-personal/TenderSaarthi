@@ -55,6 +55,11 @@ rm -rf $TEMPDIR
 
 If any step in the clean-clone test fails, **stop and fix** before submission.
 
+When the bidder workspace is implemented, extend this smoke test to hit:
+- `http://localhost:3000/bidder/tenders`
+- `http://localhost:3000/bidder/tenders/<tender_id>/submit`
+- `http://localhost:3000/tenders/<tender_id>/submissions`
+
 ### 3. Demo deliverables
 - [ ] Video file exists, < 5:00, 1080p, audio levels reasonable
 - [ ] YouTube upload is **unlisted** (not private)
@@ -91,6 +96,14 @@ The three differentiators must be present in:
 - [ ] PPT — at least one slide per differentiator (Differentiator 1, 2, 3)
 - [ ] Demo video — explicitly named in the closing 30 seconds
 - [ ] `docs/EVALUATION_RUBRIC.md` — referenced in scoring
+
+### 6b. Role-boundary visibility
+The admin/bidder split must be visible in:
+- [ ] `README.md` — product flow section
+- [ ] `IDEA.md` — product roles section
+- [ ] `docs/ARCHITECTURE.md` — workspace model and routes
+- [ ] Demo video — bidder submits documents before admin evaluates
+- [ ] PPT — workflow split slide before differentiators
 
 ### 7. Audit hash test
 This is the single most credibility-earning moment in the demo. Verify it works:

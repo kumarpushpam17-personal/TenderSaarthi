@@ -31,6 +31,8 @@ docker compose exec backend python -m scripts.load_demo
 ```
 - [ ] All services come up cleanly (no error logs)
 - [ ] Frontend at `localhost:3000` loads
+- [ ] Bidder workspace route loads and can create a demo submission
+- [ ] Admin workspace shows the received bidder submission for the tender
 - [ ] Demo tender + 10 bidders are visible after `load_demo`
 - [ ] End-to-end evaluation completes without manual intervention
 - [ ] Audit PDF downloads and hash-verifies
@@ -92,15 +94,16 @@ docker compose exec backend python -m scripts.load_demo
 2. **The problem** — five structural failures, one slide
 3. **What's TenderSaarthi** — five-stage pipeline, one diagram
 4. **Live demo** — placeholder slide; cut to video
-5. **Differentiator 1** — Criterion-review gate
-6. **Differentiator 2** — Confidence floors
-7. **Differentiator 3** — Model-versioned replayability
-8. **Architecture** — the system diagram from `README.md`
-9. **Tech stack** — table from `docs/TECH_STACK.md`, condensed
-10. **Risks & trade-offs** — four bullets max
-11. **Roadmap & impact** — CPWD / Railways / PSUs / state portals; ₹8–10 lakh crore framing
-12. **Team** — names, roles, one-line each
-13. **(Optional) Q&A holder slide**
+5. **Workflow split** — CRPF/admin workspace vs bidder workspace
+6. **Differentiator 1** — Criterion-review gate
+7. **Differentiator 2** — Confidence floors
+8. **Differentiator 3** — Model-versioned replayability
+9. **Architecture** — the system diagram from `README.md`
+10. **Tech stack** — table from `docs/TECH_STACK.md`, condensed
+11. **Risks & trade-offs** — four bullets max
+12. **Roadmap & impact** — CPWD / Railways / PSUs / state portals; ₹8–10 lakh crore framing
+13. **Team** — names, roles, one-line each
+14. **(Optional) Q&A holder slide**
 
 ## Public-link sanity test
 

@@ -6,42 +6,72 @@
 
 ```mermaid
 flowchart TB
-  subgraph Ingestion
+  subgraph AdminWorkspace[CRPF / Admin Workspace]
     A[Tender PDF Upload] --> B[Tender Parser<br/>PyMuPDF + PaddleOCR]
     B --> C[Criterion Extractor<br/>Claude Sonnet, structured output]
     C --> D[Criterion Registry<br/>Postgres]
     D --> E{{Criterion-Review Gate<br/>Human checkpoint}}
   end
 
-  subgraph BidderPipeline[Bidder Pipeline]
-    F[Bidder Bundle Upload] --> G[Document Type Classifier]
-    G --> H[Language Detector<br/>langdetect + script heuristic]
-    H --> I[OCR Router]
-    I -->|typed| J[PyMuPDF]
-    I -->|scan/photo| K[PaddleOCR Indic]
-    I -->|low-confidence| L[Claude Sonnet Vision]
-    I -->|tabular fin| M[AWS Textract]
-    J & K & L & M --> N[Translator<br/>IndicTrans2]
-    N --> O[Evidence Extractor<br/>Claude Sonnet, structured output]
-    O --> P[Evidence Store<br/>Postgres + pgvector]
+  subgraph BidderWorkspace[Bidder Workspace]
+    F[Open Tender<br/>Submit firm profile + documents] --> G[Submission Store]
+  end
+
+  subgraph BidderPipeline[Bidder Document Pipeline]
+    G --> H[Document Type Classifier]
+    H --> I[Language Detector<br/>langdetect + script heuristic]
+    I --> J[OCR Router]
+    J -->|typed| K[PyMuPDF]
+    J -->|scan/photo| L[PaddleOCR Indic]
+    J -->|low-confidence| M[Claude Sonnet Vision]
+    J -->|tabular fin| N[AWS Textract]
+    K & L & M & N --> O[Translator<br/>IndicTrans2]
+    O --> P[Evidence Extractor<br/>Claude Sonnet, structured output]
+    P --> Q[Evidence Store<br/>Postgres + pgvector]
   end
 
   E --> MatchingEngine
-  P --> MatchingEngine
+  Q --> MatchingEngine
 
   subgraph MatchingEngine[Matching Engine]
-    Q[Rule Matcher] --> T[Verdict Generator]
-    R[Semantic Matcher<br/>BGE-M3] --> T
-    S[Span Validator] --> T
-    T --> U[Confidence Floor Check]
-    U --> V[Verdict Store]
+    R[Rule Matcher] --> U[Verdict Generator]
+    S[Semantic Matcher<br/>BGE-M3] --> U
+    T[Span Validator] --> U
+    U --> V[Confidence Floor Check]
+    V --> W[Verdict Store]
   end
 
-  V --> W[Reviewer UI<br/>Next.js + PDF.js]
-  W --> X[Audit Log<br/>replay_log]
-  V --> Y[Audit PDF Builder<br/>ReportLab]
-  Y --> Z[Signed PDF + SHA-256]
+  W --> X[Reviewer UI<br/>Next.js + PDF.js]
+  X --> Y[Audit Log<br/>replay_log]
+  W --> Z[Audit PDF Builder<br/>ReportLab]
+  Z --> AA[Signed PDF + SHA-256]
 ```
+
+## Workspace model
+
+TenderSaarthi has two product workspaces.
+
+### CRPF / Admin workspace
+Procurement officers use this workspace to create tenders, upload tender PDFs, approve extracted criteria, monitor bidder submissions, run evaluations, inspect verdicts, approve or override results, and generate audit reports. Admin routes own the evaluation and audit surfaces.
+
+Target admin routes:
+- `/tenders` or `/admin/tenders` — tender dashboard.
+- `/tenders/new` or `/admin/tenders/new` — tender PDF upload.
+- `/tenders/{id}/review-criteria` — criterion-review gate.
+- `/tenders/{id}/submissions` — received bidder submissions.
+- `/tenders/{id}/verdicts` — verdict matrix.
+- `/tenders/{id}/audit` — audit report.
+
+### Bidder workspace
+Bidder users use this workspace to view open tenders, open public tender details, submit firm details and documents for one tender, and track their own submission status. Bidder routes must not expose other bidders, reviewer actions, internal criteria edits, model outputs, verdict matrices, or audit reports.
+
+Target bidder routes:
+- `/bidder/tenders` — open tenders.
+- `/bidder/tenders/{id}` — public tender details.
+- `/bidder/tenders/{id}/submit` — firm profile + document upload.
+- `/bidder/submissions/{id}` — status for the bidder's own submission.
+
+The current mock phase may keep `/tenders/{id}/bidders` as an admin-assisted upload shortcut for demo speed. Treat it as a prototype shortcut, not the target product boundary.
 
 ## Component breakdown
 
@@ -74,7 +104,9 @@ No bidder evaluation can run until status is `CRITERIA_APPROVED`. Enforced in `s
 
 The reviewer can edit any criterion (description, mandatory flag, threshold), delete extracted criteria that are not actually eligibility rules, or add criteria the LLM missed. Every edit is logged.
 
-### 4. Bidder Pipeline
+### 4. Bidder Submission + Document Pipeline
+
+Bidder submission starts in the bidder workspace. A submission belongs to exactly one tender and one bidder. Once received, the document pipeline parses the bundle and produces evidence records for matching.
 
 #### Document Type Classifier
 A small heuristic — file extension + magic bytes + presence of a text layer in PDFs. Outputs one of: `TYPED_PDF` / `SCANNED_PDF` / `IMAGE` / `DOCX`.
@@ -167,12 +199,16 @@ Every verdict carries: `verdict`, `reason`, `evidence_ref`, `model_version`, `pr
 ### 7. Reviewer UI (`frontend/`)
 
 Pages:
-- `/tenders` — list of tenders.
-- `/tenders/[id]` — overview + status badge.
+- `/tenders` or `/admin/tenders` — admin tender dashboard.
+- `/tenders/[id]` — admin overview + status badge.
 - `/tenders/[id]/review-criteria` — the criterion-review gate.
-- `/tenders/[id]/bidders` — list bidders, upload new bundle.
+- `/tenders/[id]/submissions` — admin view of bidder submissions for that tender.
 - `/tenders/[id]/verdicts` — bidder × criterion matrix.
 - `/tenders/[id]/audit` — final report download.
+- `/bidder/tenders` — bidder-facing list of open tenders.
+- `/bidder/tenders/[id]` — bidder-facing tender details.
+- `/bidder/tenders/[id]/submit` — bidder-facing firm profile and document upload.
+- `/bidder/submissions/[id]` — bidder-facing submission status.
 
 The verdict matrix uses a side-panel pattern: click a cell, side panel opens with the criterion text, evidence value, confidence, and an embedded PDF.js viewer scrolled to the cited page with a bounding box overlay. Reviewer can toggle language, approve, or override.
 
@@ -210,14 +246,23 @@ CREATE TABLE criteria (
 
 CREATE TABLE bidders (
   id UUID PRIMARY KEY,
-  tender_id UUID NOT NULL REFERENCES tenders(id),
   legal_name TEXT NOT NULL,
-  uploaded_at TIMESTAMPTZ NOT NULL
+  contact_email TEXT,
+  created_at TIMESTAMPTZ NOT NULL
+);
+
+CREATE TABLE submissions (
+  id UUID PRIMARY KEY,
+  tender_id UUID NOT NULL REFERENCES tenders(id),
+  bidder_id UUID NOT NULL REFERENCES bidders(id),
+  status TEXT NOT NULL CHECK (status IN ('DRAFT','SUBMITTED','PROCESSING','EVIDENCE_READY','NEEDS_CORRECTION','WITHDRAWN')),
+  submitted_at TIMESTAMPTZ,
+  updated_at TIMESTAMPTZ NOT NULL
 );
 
 CREATE TABLE bidder_documents (
   id UUID PRIMARY KEY,
-  bidder_id UUID NOT NULL REFERENCES bidders(id),
+  submission_id UUID NOT NULL REFERENCES submissions(id),
   filename TEXT NOT NULL,
   content_hash TEXT NOT NULL,
   document_type TEXT NOT NULL,
@@ -227,6 +272,7 @@ CREATE TABLE bidder_documents (
 
 CREATE TABLE evidence (
   id UUID PRIMARY KEY,
+  submission_id UUID NOT NULL REFERENCES submissions(id),
   bidder_id UUID NOT NULL REFERENCES bidders(id),
   criterion_id UUID NOT NULL REFERENCES criteria(id),
   document_id UUID NOT NULL REFERENCES bidder_documents(id),
@@ -308,9 +354,13 @@ GET    /api/v1/tenders/{id}/criteria        # extracted criteria
 PATCH  /api/v1/tenders/{id}/criteria/{cid}  # edit one criterion
 POST   /api/v1/tenders/{id}/criteria/approve # lock the criterion set
 
-POST   /api/v1/tenders/{id}/bidders         # create bidder
-POST   /api/v1/bidders/{id}/documents       # multipart upload
-GET    /api/v1/bidders/{id}                 # bidder + evidence
+GET    /api/v1/public/tenders               # bidder-facing open tenders
+GET    /api/v1/public/tenders/{id}          # bidder-facing tender details
+POST   /api/v1/public/tenders/{id}/submissions # create bidder submission
+POST   /api/v1/submissions/{id}/documents   # multipart upload
+GET    /api/v1/submissions/{id}             # bidder's own submission status
+GET    /api/v1/tenders/{id}/submissions     # admin view of submissions
+GET    /api/v1/submissions/{id}/evidence    # admin/reviewer evidence view
 
 POST   /api/v1/tenders/{id}/evaluate        # run evaluation (Celery)
 GET    /api/v1/tenders/{id}/verdicts        # verdict matrix

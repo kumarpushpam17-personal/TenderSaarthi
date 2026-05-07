@@ -6,6 +6,8 @@ description: Build or improve the tender criterion extraction service
 
 You are working on `backend/app/services/tender/criterion_extractor.py`. This service takes a parsed tender document and produces a typed list of `Criterion` records using Claude Sonnet with Pydantic structured output.
 
+This is an admin/CRPF workflow. Criteria are extracted from the procuring department's tender PDF and must be approved in the admin workspace before any bidder submission can be evaluated.
+
 ## Before you write code
 
 1. Read `CLAUDE.md` for project conventions and the three non-negotiables.

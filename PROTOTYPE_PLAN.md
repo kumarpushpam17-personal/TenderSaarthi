@@ -26,9 +26,14 @@
 
 ## Week 2 — Bidder Pipeline (Multiformat + Multilingual)
 
-**Outcome:** Upload a bidder bundle (typed PDF + scan + photo + Word + Hindi/Kannada documents), see every page parsed with provenance and confidence scores attached.
+**Outcome:** A bidder opens an eligible tender, submits firm details plus a document bundle (typed PDF + scan + photo + Word + Hindi/Kannada documents), and the admin workspace shows the received submission with every page parsed with provenance and confidence scores attached.
 
-**What we are proving:** that we can actually handle the document chaos that real procurement evaluators face — not just the clean-PDF case every demo shows.
+**What we are proving:** that bidder submission and officer review are separate workflows, and that we can handle the document chaos real procurement evaluators face — not just the clean-PDF case every demo shows.
+
+**Workspace boundary:**
+- Bidder routes: `/bidder/tenders`, `/bidder/tenders/{id}`, `/bidder/tenders/{id}/submit`, `/bidder/submissions/{id}`.
+- Admin routes: `/tenders/{id}/submissions`, `/tenders/{id}/verdicts`, `/tenders/{id}/audit`.
+- Prototype shortcut allowed: admin-assisted bidder upload can remain for mock/demo speed, but the target product must show the bidder-facing submission path.
 
 **The OCR routing decision tree:**
 1. If the document is a typed PDF (text layer present) → PyMuPDF, no OCR needed.
@@ -42,7 +47,8 @@
 - Synthetic bidder documents look fake → spend an afternoon reading real (public) tender responses on GeM and mirror the formatting.
 
 **Definition of done for Week 2:**
-- All 10 synthetic bidders have evidence rows in the database after upload.
+- At least one bidder submission is created through the bidder workspace and visible in the admin workspace.
+- All 10 synthetic bidders have evidence rows in the database after submission upload.
 - Confidence scores are visible per piece of evidence.
 - Original-language and translated text are both stored.
 
@@ -96,9 +102,10 @@
 **Demo flow (5 min, scripted):**
 1. (0:00–0:30) Frame the problem with one slide-equivalent intro.
 2. (0:30–1:30) Upload tender, watch criteria appear, approve at the gate.
-3. (1:30–3:00) Trigger evaluation, watch the verdict matrix populate.
-4. (3:00–4:00) Click a `NOT_ELIGIBLE` cell, jump to bbox, override one verdict, language-toggle one Hindi document.
-5. (4:00–5:00) Export the audit PDF, show the SHA-256 hash, hit "Replay" and show identical output. Close on the three differentiators.
+3. (1:30–2:10) Switch to bidder workspace, open the tender, submit bidder details and documents.
+4. (2:10–3:00) Return to admin workspace, confirm the submission is received, trigger evaluation, watch the verdict matrix populate.
+5. (3:00–4:00) Click a `NOT_ELIGIBLE` cell, jump to bbox, override one verdict, language-toggle one Hindi document.
+6. (4:00–5:00) Export the audit PDF, show the SHA-256 hash, hit "Replay" and show identical output. Close on the three differentiators.
 
 Full script in `docs/DEMO_SCRIPT.md`.
 

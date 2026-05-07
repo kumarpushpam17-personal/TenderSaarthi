@@ -4,7 +4,7 @@ description: Build or improve the criterion-to-evidence matching engine (rule + 
 
 # /match-evidence
 
-You are working on `backend/app/services/matching/`. The matching engine takes approved criteria and extracted evidence and produces a verdict per (bidder, criterion) pair.
+You are working on `backend/app/services/matching/`. The matching engine takes approved criteria and extracted evidence from bidder submissions and produces a verdict per (submission, bidder, criterion) pair.
 
 ## Before you write code
 
@@ -13,6 +13,11 @@ You are working on `backend/app/services/matching/`. The matching engine takes a
 3. Read `docs/PROTOTYPE_PLAN.md` Week 3 for the matching precedence and the confidence floor table.
 
 ## Three matchers, run in this order
+
+Before any matcher runs:
+- Verify the tender status is `CRITERIA_APPROVED`, `EVALUATING`, or `EVALUATED`.
+- Verify every evidence row belongs to a `Submission` for the same tender.
+- Ignore draft or withdrawn submissions.
 
 ### 1. Rule Matcher (`rule_matcher.py`)
 For criteria with typed thresholds, do a direct comparison.
@@ -69,6 +74,7 @@ else:
 ## Hard rules
 
 - **Never default to `NOT_ELIGIBLE` on partial information.** Default is `NEEDS_MANUAL_REVIEW`.
+- **Never evaluate evidence outside its tender submission.** Criteria, bidder, submission, and evidence must all share the same tender context.
 - **Span validation runs even when rule_match is True.** This catches LLM hallucination on the value side.
 - **Confidence floors are per-modality and per-category.** Tune empirically against ground truth in `data/ground_truth/`.
 

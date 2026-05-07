@@ -50,6 +50,7 @@ This is where most hackathon submissions lose points. Judges include IAS officer
 | Audit trail | `replay_log` table + signed PDF | SHA-256 hash on the audit report; full replay capability |
 | Data residency | On-prem mode option | `docs/TECH_STACK.md` "Open weights / sovereignty story" |
 | Human authority preserved | Criterion-review gate + reviewer override | The reviewer signs off, never the AI |
+| Role boundary is realistic | Admin workspace + bidder workspace | Bidder submits only their own documents; CRPF/admin reviews submissions and verdicts |
 | Format coverage | OCR router | Typed PDF, scanned PDF, image, Word, financial tables — all handled |
 | Indic language coverage | Translation pipeline | English + Hindi + Kannada minimum, extensible to 22 Indian languages |
 
@@ -60,7 +61,7 @@ This is where most hackathon submissions lose points. Judges include IAS officer
 | Lever | Where it lives | Evidence |
 |---|---|---|
 | Demo runs end-to-end | Video | One uninterrupted flow, 5:00 max |
-| Differentiators front-loaded | Demo script | Criterion gate at 1:30, confidence floor at 3:00, replayability at 4:30 |
+| Differentiators front-loaded | Demo script | Criterion gate, bidder submission boundary, confidence floor, replayability |
 | Slides judge-friendly | PPT | 12–15 slides, no walls of text, big diagrams |
 | Synthetic data realistic | `data/samples/` | Real GFR/CVC clause language, not generic placeholders |
 

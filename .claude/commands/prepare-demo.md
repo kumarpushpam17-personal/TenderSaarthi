@@ -29,8 +29,9 @@ docker compose exec backend python -m scripts.load_demo
 Expected output:
 - 1 tender uploaded (CRPF construction)
 - 12 criteria extracted (4 mandatory + 8 optional)
-- 10 bidders created
-- ~30 documents uploaded across the 10 bidders
+- 1 bidder-facing submission created through `/bidder/tenders/<tender_id>/submit`
+- 10 demo submissions created for evaluation coverage
+- ~30 documents uploaded across the 10 submissions
 - All evidence extracted (no errors)
 - Criterion-review gate APPROVED automatically (since this is demo data)
 
@@ -48,7 +49,10 @@ curl -s http://localhost:8000/api/v1/tenders/<tender_id>/report.pdf > /dev/null
 Then open the frontend pages in a browser:
 - `http://localhost:3000/tenders`
 - `http://localhost:3000/tenders/<tender_id>/review-criteria`
-- `http://localhost:3000/tenders/<tender_id>/bidders`
+- `http://localhost:3000/bidder/tenders`
+- `http://localhost:3000/bidder/tenders/<tender_id>`
+- `http://localhost:3000/bidder/tenders/<tender_id>/submit`
+- `http://localhost:3000/tenders/<tender_id>/submissions`
 - `http://localhost:3000/tenders/<tender_id>/verdicts`
 - `http://localhost:3000/tenders/<tender_id>/audit`
 
@@ -76,7 +80,7 @@ If they match, the demo's "tamper-evident" claim is real.
 - [ ] Mic levels checked; no echo
 - [ ] Recording at 1080p 30fps
 - [ ] No real API keys visible in URL bars or terminals
-- [ ] Tabs preloaded in the demo order: tender upload → criteria review → bidders → verdicts → audit
+- [ ] Tabs preloaded in the demo order: tender upload → criteria review → bidder submission → admin submissions → verdicts → audit
 - [ ] Terminal window prepared for the `sha256sum` moment
 - [ ] `docs/DEMO_SCRIPT.md` open on a second screen
 - [ ] Backup screenshots taken in case the live demo breaks during recording

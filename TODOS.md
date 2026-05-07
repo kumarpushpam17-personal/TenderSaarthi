@@ -54,11 +54,16 @@ Do not ship anything that does not move at least one of the four bullets above f
 
 ## Week 2 — Bidder Pipeline (Multiformat + Multilingual)
 
-**Goal:** Upload a bidder's bundle, see every document parsed with provenance, regardless of format or language.
+**Goal:** Bidder submits a bundle for one tender, admin sees the received submission, and every document is parsed with provenance regardless of format or language.
 
 ### Bidder ingestion
-- [ ] `POST /api/v1/tenders/{id}/bidders` — create bidder, return bidder ID
-- [ ] `POST /api/v1/bidders/{id}/documents` — multipart upload, multiple files
+- [ ] Bidder page `/bidder/tenders` — list open tenders
+- [ ] Bidder page `/bidder/tenders/{id}` — public tender details
+- [ ] Bidder page `/bidder/tenders/{id}/submit` — firm profile + document upload for that tender
+- [ ] Admin page `/tenders/{id}/submissions` — received submissions for the tender
+- [ ] `POST /api/v1/public/tenders/{id}/submissions` — create bidder + submission, return submission ID
+- [ ] `POST /api/v1/submissions/{id}/documents` — multipart upload, multiple files
+- [ ] `GET /api/v1/tenders/{id}/submissions` — admin list of received submissions
 - [ ] Per document: detect type (typed PDF / scanned PDF / image / docx)
 - [ ] Save to object storage with deduplication (SHA-256 keyed)
 
@@ -78,7 +83,7 @@ Do not ship anything that does not move at least one of the four bullets above f
 ### Evidence extraction
 - [ ] `services/bidder/evidence_extractor.py` — Claude Sonnet structured output, per criterion category
 - [ ] Output shape: `{ value, type, source_doc, page, bbox, ocr_confidence, extraction_confidence, raw_span, translated_span }`
-- [ ] Save to `evidence` table with FK to bidder + criterion
+- [ ] Save to `evidence` table with FK to submission + bidder + criterion
 
 ### Sample data
 - [ ] 10 synthetic bidders covering edge cases:
@@ -93,6 +98,7 @@ Do not ship anything that does not move at least one of the four bullets above f
   - [ ] Bidder 9: GST in Hindi, format variation, but valid
   - [ ] Bidder 10: clean, all criteria met, mixed-language bundle
 - [ ] Smoke test: upload bidder 1's documents, confirm evidence extracted
+- [ ] Smoke test: bidder submits through `/bidder/tenders/{id}/submit`, admin sees the submission under `/tenders/{id}/submissions`
 
 ---
 
@@ -115,6 +121,7 @@ Do not ship anything that does not move at least one of the four bullets above f
 
 ### Reviewer UI
 - [ ] Verdict matrix page `/tenders/[id]/verdicts` — bidders down, criteria across, color-coded cells
+- [ ] Admin submissions page clearly states submissions came from the bidder workspace, not from criterion review
 - [ ] Click a cell → side panel with: criterion text, extracted evidence, confidence, source doc reference
 - [ ] PDF.js viewer with bounding box highlighted on the right pane
 - [ ] Language toggle (original ↔ translated) on the side panel
@@ -141,7 +148,7 @@ Do not ship anything that does not move at least one of the four bullets above f
 ### Polish
 - [ ] Loading states + error boundaries on every async page in the frontend
 - [ ] Empty-state copy on every page (no crashes on fresh tenant)
-- [ ] Basic auth (single admin user for the demo — JWT cookie, no need for full RBAC at prototype)
+- [ ] Basic auth with two demo roles: admin/reviewer and bidder (JWT cookie, no full RBAC needed)
 - [ ] One-command `make demo` that loads the bundled tender + 10 bidders and prints a URL
 
 ### Submission deliverables

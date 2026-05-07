@@ -8,7 +8,7 @@
 - [ ] Cache pre-warmed: open every page once before recording
 - [ ] Demo data loaded: `make demo` ran without errors
 - [ ] Anthropic API key has budget headroom
-- [ ] Tabs open in this order: tender upload, criteria review, verdicts, audit
+- [ ] Tabs open in this order: admin tender upload, criteria review, bidder submission, admin submissions, verdicts, audit
 - [ ] Mic levelled, screen recording at 1080p 30fps
 - [ ] No notifications: turn off Slack, email, calendar
 
@@ -40,7 +40,19 @@
 
 ## Show the bidder evaluation (1:30 – 3:00)
 
-> _Click "Bidders". Show the list of 10 bidders that have been pre-loaded._
+> _Switch to the bidder workspace. Open the CRPF construction tender from the open-tenders list._
+>
+> "Now I'm switching roles. This is the bidder side. A firm sees open tenders, opens the CRPF construction tender, and submits its company details plus supporting documents for this tender."
+>
+> _Submit one bidder profile and upload a small bundle: turnover certificate, GST certificate, ISO certificate._
+>
+> "The bidder does not see other bidders, model outputs, or reviewer screens. They only submit documents and track their own submission."
+>
+> _Return to the admin workspace. Open the tender submissions page._
+>
+> "Back on the CRPF side, the officer can see that the submission has arrived and that the document pipeline is parsing it."
+>
+> _Show the list of 10 bidders that have been pre-loaded for the evaluation demo._
 >
 > "I've pre-loaded ten bidders for this demo. Each bundle is different — typed PDFs, scanned certificates, photographs, mixed English-Hindi-Kannada documents."
 >

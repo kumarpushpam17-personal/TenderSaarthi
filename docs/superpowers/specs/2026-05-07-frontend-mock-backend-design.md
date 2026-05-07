@@ -6,6 +6,8 @@
 
 Build the TenderSaarthi frontend (Next.js 14) and a mock FastAPI backend that returns static JSON responses. The frontend makes real HTTP calls to the backend. In Phase 3, mock route handler bodies are replaced with real DB + AI logic — zero frontend changes required.
 
+Clarification after implementation review: the target product has two workspaces. The current mock's `/tenders/[id]/bidders` page is an admin-assisted shortcut for demo speed. The durable product flow must add a bidder-facing submission workspace so bidders upload their own documents against a tender, and CRPF/admin users only review received submissions and verdicts.
+
 ## Decisions Made
 
 | Decision | Choice | Reason |
@@ -27,6 +29,16 @@ frontend/
 ├── app/
 │   ├── layout.tsx                      # Root layout — TopNav only
 │   ├── page.tsx                        # Redirect → /tenders
+│   ├── bidder/
+│   │   ├── tenders/
+│   │   │   ├── page.tsx                # /bidder/tenders — bidder list of open tenders
+│   │   │   └── [id]/
+│   │   │       ├── page.tsx            # /bidder/tenders/[id] — public tender details
+│   │   │       └── submit/
+│   │   │           └── page.tsx        # /bidder/tenders/[id]/submit — bidder submission form
+│   │   └── submissions/
+│   │       └── [id]/
+│   │           └── page.tsx            # /bidder/submissions/[id] — bidder's own status
 │   ├── tenders/
 │   │   ├── page.tsx                    # /tenders — tender list + stats row
 │   │   ├── new/
@@ -37,7 +49,9 @@ frontend/
 │   │       ├── review-criteria/
 │   │       │   └── page.tsx            # Criterion-review gate
 │   │       ├── bidders/
-│   │       │   └── page.tsx            # Bidders list + upload
+│   │       │   └── page.tsx            # Admin-assisted bidder upload shortcut (mock only)
+│   │       ├── submissions/
+│   │       │   └── page.tsx            # Admin view of bidder submissions
 │   │       ├── verdicts/
 │   │       │   └── page.tsx            # Verdict matrix + side panel
 │   │       └── audit/
@@ -131,7 +145,12 @@ In Phase 3, the `json.loads(Path(...))` line is replaced with real DB queries.
 | `/tenders/new` | Upload form | File drop zone, submit → shows extraction progress banner |
 | `/tenders/[id]` | Overview | Stats (criteria count, bidders, verdicts), next-step CTA |
 | `/tenders/[id]/review-criteria` | Criterion-review gate | Edit row inline, delete, add, "Approve All & Lock" |
-| `/tenders/[id]/bidders` | Bidders + document upload | Add bidder modal, per-doc language + type badges |
+| `/bidder/tenders` | Bidder open tender list | Choose tender to submit against |
+| `/bidder/tenders/[id]` | Bidder tender details | Review public tender details, start submission |
+| `/bidder/tenders/[id]/submit` | Bidder submission | Firm details + document upload |
+| `/bidder/submissions/[id]` | Bidder submission status | See submitted/processing/needs correction |
+| `/tenders/[id]/submissions` | Admin submission review | See submissions received for this tender |
+| `/tenders/[id]/bidders` | Mock admin-assisted upload shortcut | Add bidder modal, per-doc language + type badges |
 | `/tenders/[id]/verdicts` | Verdict matrix + side panel | Click cell → side panel with confidence bars, approve/override |
 | `/tenders/[id]/audit` | Audit report | SHA-256 display, Download PDF, Replay button |
 
@@ -157,9 +176,15 @@ GET    /api/v1/tenders/{id}                  → tender_detail.json
 GET    /api/v1/tenders/{id}/criteria         → criteria_list.json
 PATCH  /api/v1/tenders/{id}/criteria/{cid}   → echoes back updated criterion
 POST   /api/v1/tenders/{id}/criteria/approve → { data: { status: "CRITERIA_APPROVED" }, meta: {...} }
-GET    /api/v1/tenders/{id}/bidders          → bidders_list.json
-POST   /api/v1/tenders/{id}/bidders          → mock created bidder
-POST   /api/v1/bidders/{id}/documents        → mock uploaded document
+GET    /api/v1/public/tenders                → public open tenders for bidder workspace
+GET    /api/v1/public/tenders/{id}           → public tender detail
+POST   /api/v1/public/tenders/{id}/submissions → mock created bidder submission
+POST   /api/v1/submissions/{id}/documents    → mock uploaded document
+GET    /api/v1/submissions/{id}              → bidder's own submission status
+GET    /api/v1/tenders/{id}/submissions      → admin list of received submissions
+GET    /api/v1/tenders/{id}/bidders          → bidders_list.json (mock shortcut)
+POST   /api/v1/tenders/{id}/bidders          → mock created bidder (mock shortcut)
+POST   /api/v1/bidders/{id}/documents        → mock uploaded document (mock shortcut)
 POST   /api/v1/tenders/{id}/evaluate         → { data: { job_id: "...", status: "EVALUATING" }, meta: {...} }
 GET    /api/v1/tenders/{id}/verdicts         → verdict_matrix.json
 POST   /api/v1/verdicts/{id}/approve         → updated verdict with reviewer_action: "APPROVED"
@@ -225,5 +250,6 @@ Frontend reads `NEXT_PUBLIC_API_URL` from env; defaults to `http://localhost:800
 
 - Real DB, Celery workers, OCR, LLM calls — Phase 3.
 - Authentication — single hardcoded admin for demo, Phase 4 polish.
+- Bidder authentication and per-bidder authorization — use mock identity until auth polish.
 - PDF.js viewer with bbox overlay — Week 3 feature per TODOS.md.
 - ReportLab audit PDF generation — Week 4 feature per TODOS.md.
