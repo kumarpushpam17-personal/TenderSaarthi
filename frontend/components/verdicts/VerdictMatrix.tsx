@@ -21,14 +21,21 @@ interface SelectedCell {
   criterionId: string;
 }
 
+const SHORT_LABELS: Record<string, string> = {
+  "c-001": "Turnover",
+  "c-002": "Projects",
+  "c-003": "ISO 9001",
+  "c-004": "GST",
+  "c-005": "PAN",
+  "c-006": "Blacklist",
+  "c-007": "Single Work",
+  "c-008": "Net Worth",
+  "c-009": "OHSAS",
+};
+
 function shortLabel(criterion: Criterion | undefined, criterionId: string) {
   if (!criterion) return criterionId;
-  if (criterion.id === "c-001") return "Turnover";
-  if (criterion.id === "c-002") return "Projects";
-  if (criterion.id === "c-003") return "ISO 9001";
-  if (criterion.id === "c-004") return "GST";
-  if (criterion.id === "c-005") return "PAN";
-  return criterion.category;
+  return SHORT_LABELS[criterion.id] ?? criterion.category;
 }
 
 function verdictApiId(bidderVerdicts: BidderVerdicts, result: VerdictResult) {
